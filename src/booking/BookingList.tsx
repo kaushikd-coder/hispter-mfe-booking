@@ -165,7 +165,7 @@ function AnchoredMenu({
     const width = 176; // w-44
     const margin = 8;
 
-    // initial: open downward
+    // initial open downward
     let top = r.bottom + margin;
     let left = r.right - width;
 
@@ -252,11 +252,7 @@ const BookingList: React.FC = () => {
   const all = useSelector((s: any) => s.bookings?.all ?? []);
 
 
-  // Selector that adapts to current user visibility
-  const selectVisible = useMemo(
-    () => makeSelectVisibleBookings(sessionUser ?? undefined),
-    [sessionUser]
-  );
+
   // const rows = useAppSelector(selectVisible);
 
   const user: any = useSession();
@@ -265,12 +261,11 @@ const BookingList: React.FC = () => {
   const rows = useMemo(() => {
     if (!user?.email) return [];
 
-    // 👇 Admin can see all bookings
+
     if (user.email === "admin@example.com") {
       return userBookings;
     }
 
-    // 👇 Regular users only see their own
     return userBookings.filter((b: any) => b.user?.email === user.email);
   }, [userBookings, user]);
 
@@ -279,7 +274,7 @@ const BookingList: React.FC = () => {
   const changeStatus = (id: string, status: StatusValue) =>
     dispatch(updateBookingStatus({ id, status }));
 
-  // Guard for non-admins
+
   const visible = useMemo(() => {
     if (!user) return [];
 
@@ -454,7 +449,7 @@ const BookingList: React.FC = () => {
         {/* Pagination */}
         {total > PAGE_SIZE && (
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between border-t border-white/10 bg-emerald-950/40 px-3 sm:px-4 py-3">
-            {/* Optional: show range on larger screens */}
+
             <div className="hidden sm:block text-xs text-white/60">
               Showing <span className="text-white/90">{startIdx + 1}</span>–
               <span className="text-white/90">{endIdx}</span> of{" "}

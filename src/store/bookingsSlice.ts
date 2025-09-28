@@ -6,7 +6,7 @@ type BookingsState = {
 };
 
 const seed: Booking[] = [
-    // (optional) keep your existing demo rows here
+   
 ];
 
 const initialState: BookingsState = { all: seed };

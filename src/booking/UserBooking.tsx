@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../index.css"; // keep Tailwind import at app entry
+import "../index.css"; 
 import BookingForm from "./BookingForm";
 import BookingList from "./BookingList";
 import useSession from "./useSession";
@@ -67,7 +67,7 @@ const UserBooking: React.FC = () => {
 
                 {/* Panels */}
                 <div className="mt-4 rounded-xl border border-white/10 bg-emerald-900/25 p-3 sm:p-4 md:mt-6 md:p-6">
-                    {/* Wrap panels in a fixed max-height box so lists/forms scroll on small screens */}
+                    
                     <div className="max-h-[70vh] overflow-auto md:max-h-[68vh]">
                         {/* New Booking */}
                         <section

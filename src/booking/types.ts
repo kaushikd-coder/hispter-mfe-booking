@@ -8,15 +8,15 @@ export type User = {
 export type Booking = {
     id: string;
     facility: string;
-    date: string;       // YYYY-MM-DD
-    slot: string;       // "09:00–10:00"
+    date: string;       
+    slot: string;       
     notes?: string;
     status: "Pending" | "Approved" | "Cancelled";
     user?: Pick<User, "id" | "name" | "email">;
-    createdAt: string;  // ISO
+    createdAt: string;  
 };
 
-// augment window events so TS understands our custom events
+
 declare global {
     interface WindowEventMap {
         "auth:login": CustomEvent<User>;

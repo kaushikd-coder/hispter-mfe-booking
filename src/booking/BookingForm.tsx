@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import useSession from "./useSession";
 import type { Booking } from "./types";
 import { addBooking } from "../store/bookingsSlice";
-// import { useDispatch } from "react-redux"; // ❌ unused
+
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 
 const facilities = ["Conference Room A", "Conference Room B", "Auditorium", "Cafeteria"];
@@ -11,7 +11,7 @@ const defaultSlots = ["09:00–10:00", "10:00–11:00", "11:00–12:00", "14:00�
 type Props = { onCreate?: (b: Booking) => void };
 
 
-// "2025-09-27" -> local YYYY-MM-DD of now
+
 function localYMD(d = new Date()) {
     const y = d.getFullYear();
     const m = String(d.getMonth() + 1).padStart(2, "0");
@@ -19,19 +19,18 @@ function localYMD(d = new Date()) {
     return `${y}-${m}-${day}`;
 }
 
-// "09:00–10:00" or "09:00-10:00" -> minutes since midnight for the START
+
 function slotStartMinutes(slot: string) {
-    const [start] = slot.split(/–|-/);            // en-dash or hyphen
+    const [start] = slot.split(/–|-/);            
     const [h, m] = start.split(":").map(Number);
     return h * 60 + (m || 0);
 }
 
-// Return true if chosen slot is in the past for today's date
 function isPastSlotForToday(dateStr: string, slot: string) {
-    if (dateStr !== localYMD()) return false;     // only care about today
+    if (dateStr !== localYMD()) return false;   
     const now = new Date();
     const nowMin = now.getHours() * 60 + now.getMinutes();
-    return slotStartMinutes(slot) <= nowMin;      // block slot that already started
+    return slotStartMinutes(slot) <= nowMin;      
 }
 
 
@@ -54,7 +53,7 @@ const BookingForm: React.FC<Props> = ({ onCreate }) => {
         setForm((f) => ({ ...f, [key]: val }));
     }
 
-    // utils
+
     const pad = (n: number) => String(n).padStart(2, "0");
     const toInputDate = (d: Date) => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
 
@@ -80,7 +79,7 @@ const BookingForm: React.FC<Props> = ({ onCreate }) => {
             return;
         }
 
-        // 🚨 conflict detection
+        // conflict detection
         const conflict = allBookings.some(
             (b) => b.date === form.date && b.slot === form.slot && b.status !== "Cancelled"
         );
@@ -164,7 +163,7 @@ const BookingForm: React.FC<Props> = ({ onCreate }) => {
                          text-white placeholder-white/40 focus:outline-none focus:ring-2
                          focus:ring-emerald-400 focus:border-emerald-400"
                             value={form.date}
-                            min={MIN_DATE_ALLOW_TODAY} // or MIN_DATE_AFTER_TODAY
+                            min={MIN_DATE_ALLOW_TODAY}
                             onChange={(e) => {
                                 const v = e.target.value;
                                 const min = MIN_DATE_ALLOW_TODAY;
